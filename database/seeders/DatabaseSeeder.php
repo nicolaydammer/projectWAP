@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $roleAdmin = Role::create(['name' => 'admin']);
         $roleScientist = Role::create(['name' => 'scientist']);
-        $roleCusServ = Role::create(['name' => 'customer service']);
+        $roleCustomerService = Role::create(['name' => 'customer service']);
 
         //admin
         Permission::create(['name' => 'manage permission']);
@@ -50,16 +50,16 @@ class DatabaseSeeder extends Seeder
             'compare weather data',
             'handle outage']);
 
-        $roleCusServ->givePermissionTo([
+        $roleCustomerService->givePermissionTo([
             'see customers',
             'add contract',
             'change contract',
             'delete contract']);
 
-        $csPermissions = $roleCusServ->permissions->pluck('name');
+        $customerServicePermissions = $roleCustomerService->permissions->pluck('name');
         $scientistPermissions = $roleScientist->permissions->pluck('name');
 
-        $roleScientist->givePermissionTo($csPermissions);
-        $roleAdmin->givePermissionTo($csPermissions, $scientistPermissions);
+        $roleScientist->givePermissionTo($customerServicePermissions);
+        $roleAdmin->givePermissionTo($customerServicePermissions, $scientistPermissions);
     }
 }
