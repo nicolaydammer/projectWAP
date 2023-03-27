@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/login', 'App\Http\Controllers\Login@index');
+
+Route::post('/login', 'App\Http\Controllers\Login@login') -> name('login');
+
+Route::get('/dashbord', 'App\Http\Controllers\Dashbord@index');
