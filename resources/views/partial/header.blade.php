@@ -5,7 +5,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">IWA</a>
+        <img src="../../../public/img/LogoIWA.jpg" alt="IWA Logo" width="100" height="100">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

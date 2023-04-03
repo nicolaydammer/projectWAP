@@ -29,6 +29,26 @@
         <td>Online</td>
         <td>Caïro</td>
     </tr>
+    <tr class="vakjes">
+        <td>437829</td>
+        <td>Error!</td>
+        <td>Hawaii</td>
+    </tr>
+    <tr class="vakjes">
+        <td>991029</td>
+        <td>Online</td>
+        <td>Honkong</td>
+    </tr>
+    <tr class="vakjes">
+        <td>726617</td>
+        <td>Online</td>
+        <td>Stockholm</td>
+    </tr>
+    <tr class="vakjes">
+        <td>429850</td>
+        <td>Online</td>
+        <td>Caïro</td>
+    </tr>
 </table>
 
 
