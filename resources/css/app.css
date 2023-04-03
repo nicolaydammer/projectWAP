@@ -60,3 +60,35 @@ CSS for Login page
 /*
 CSS for Dashboard page
 */
+
+#dashboard-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 70px;
+}
+
+#dashboard-welkom-text {
+    text-align: center;
+    margin-bottom: 80px;
+    font-size: 30px;
+}
+
+.dashbord-table {
+    width: 70%;
+    border-collapse: collapse;
+    border: solid 1px #ccc;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+td {
+    border: solid 1px #ccc;
+    padding: 10px;
+}
+
+th {
+    border: solid 1px #ccc;
+    padding: 10px;
+    background-color: #1690A7;
+    color: #fff;
+}
