@@ -15,7 +15,6 @@ class Login extends Controller
 
     public function login(LoginRequest $request)
     {
-        dd("123");
-        return redirect()->route('dashbord');
+        return redirect()->route('dashboard');
     }
 }

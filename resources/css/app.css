@@ -1,4 +1,13 @@
-body {
+* {
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+
+/*
+CSS for Login page
+*/
+.login{
     background-color: #1690A7;
     display: flex;
     justify-content: center;
@@ -6,12 +15,7 @@ body {
     height: 100vh;
 }
 
-* {
-    font-family: sans-serif;
-    box-sizing: border-box;
-}
-
-form {
+.login_page {
     width: 500px;
     border: 2px solid #ccc;
     padding: 30px;
@@ -19,12 +23,12 @@ form {
     border-radius: 15px;
 }
 
-h2 {
+.login_page h2{
     text-align: center;
     margin-bottom: 40px;
 }
 
-input {
+.login_page input {
     display: block;
     border: 2px solid #ccc;
     width: 95%;
@@ -33,13 +37,13 @@ input {
     border-radius: 5px;
 }
 
-label {
+.login_page label {
     color: #888;
     font-size: 18px;
     padding: 10px;
 }
 
-button {
+.login_page button {
     float: right;
     background: #555;
     padding: 10px 15px;
@@ -49,15 +53,10 @@ button {
     border: none;
 }
 
-button:hover {
+.login_page button:hover {
     opacity: .7;
 }
 
-.error {
-    background: #f2dede;
-    color: #A94442;
-    padding: 10px;
-    width: 95%;
-    border-radius: 5px;
-    margin: 20px auto;
-}
+/*
+CSS for Dashboard page
+*/

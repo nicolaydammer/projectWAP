@@ -1,6 +1,6 @@
 @include("partial.header")
-
-<form action="{{ route("login") }}" method="post">
+<content class="login">
+<form class="login_page" action="{{ route("login") }}" method="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
     <h2>Inloggen</h2>
     <label>Username</label>
@@ -11,4 +11,5 @@
 
     <button type="submit">Login</button>
 </form>
+</content>
 @include("partial.footer")

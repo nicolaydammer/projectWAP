@@ -1,4 +1,5 @@
 
 @include("partial.header")
-<h1>Dashbord</h1>
+<h1>Dashboard</h1>
+<p>{{ $name }}</p>
  @include("partial.footer")

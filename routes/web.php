@@ -19,6 +19,6 @@ Route::get('/', function () {
 
 Route::get('/login', 'App\Http\Controllers\Login@index');
 
-Route::post('/login', 'App\Http\Controllers\Login@login') -> name('login');
+Route::post('/login', 'App\Http\Controllers\Login@login')->name('login');
 
-Route::get('/dashbord', 'App\Http\Controllers\Dashbord@index');
+Route::get('/dashboard', 'App\Http\Controllers\Dashboard@index')->name('dashboard');
