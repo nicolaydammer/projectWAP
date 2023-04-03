@@ -31,6 +31,9 @@ return new class extends Migration
             $table->string('locality');
             $table->string('postalcode');
             $table->timestamps();
+
+            $table->foreign('station_id')->references('id')->on('stations');
+            $table->foreign('country_id')->references('id')->on('country');
         });
     }
 
