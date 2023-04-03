@@ -23,8 +23,6 @@ return new class extends Migration
             $table->char('phonenumber', 10);
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
-
         });
     }
 

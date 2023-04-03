@@ -19,8 +19,6 @@ return new class extends Migration
             $table->time('update_time');
             $table->timestamps();
 
-            $table->foreign('customer_id')->references('id')->on('customers');
-            $table->foreign('contract_specifications_id')->references('id')->on('contract_specifications');
         });
     }
 

@@ -19,8 +19,6 @@ return new class extends Migration
             $table->float('longitude');
             $table->json('Data_specifications');
             $table->timestamps();
-
-            $table->foreign('country_id')->references('id')->on('country');
         });
     }
 

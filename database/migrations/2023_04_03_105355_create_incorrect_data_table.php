@@ -27,8 +27,6 @@ return new class extends Migration
             $table->bigInteger('wind_direction');
             $table->string('events');
             $table->timestamps();
-
-            $table->foreign('wheather_data_id')->references('id')->on('wheather_data');
         });
     }
 

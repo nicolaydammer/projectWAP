@@ -29,8 +29,6 @@ return new class extends Migration
             $table->string('events');
             $table->timestamps();
 
-            $table->foreign('station_id')->references('id')->on('stations');
-
         });
     }
 

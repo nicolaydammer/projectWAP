@@ -23,8 +23,6 @@ return new class extends Migration
             $table->float('elevation')->nullable(false);
             $table->timestamps();
 
-            $table->foreign('station_id')->references('id')->on('stations');
-            $table->foreign('country_id')->references('id')->on('country');
         });
     }
 
