@@ -7,7 +7,8 @@
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Administratie</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Over</a></li>
         </ul>
-        <p class="text-center text-muted">© 2023 IWA Company</p>
+        <p class="text-center text-muted">© 2023 IWA Company</p> <br>
+        <p class="text-center text-muted">Created by: <br> Kyra Noordhof <br>Nicolay Dammer <br> Pjotr Kooijmans <br> Ben Vos <br> Alwin Stecher</p>
     </footer>
 </footer>
 </body>

@@ -7,7 +7,7 @@
     <tr class="vakjes">
         <th>Weerstation</th>
         <th>Status</th>
-        <th>Land</th>
+        <th>Plaats</th>
     </tr>
     <tr class="vakjes">
         <td>248852</td>
@@ -50,6 +50,9 @@
         <td>Caïro</td>
     </tr>
 </table>
+
+
+
 
 
 @include("partial.footer")
