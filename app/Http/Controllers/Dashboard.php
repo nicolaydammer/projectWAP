@@ -12,7 +12,7 @@ class Dashboard extends Controller
     public function index(Request $request): View
     {
         return view('dashboard', [
-            'name' => "Alwin Stecher",
+            'name' => "Ben Vos",
             'stations' => [
                 ['id' => 124, 'city' => 'Groningen', 'status' => 1],
                 ['id' => 125, 'city' => 'Groningen', 'status' => 1],
