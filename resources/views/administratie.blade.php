@@ -13,6 +13,7 @@
         <option value="freq4">Uur </option>
         <option value="freq5">Minuut</option>
     </select>
+
     <br>
     <input type="submit" value="Klant toevoegen" id="klant-submit-button">
     <br>
