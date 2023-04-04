@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contract_specifications', function (Blueprint $table) {
+        Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('country_id');
-            $table->foreignId('contract_id');
-            $table->char('timezone', 6);
-            $table->float('latitude');
-            $table->float('longitude');
-            $table->json('Data_specifications');
             $table->timestamps();
+
         });
     }
 
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contract_specifications');
+        Schema::dropIfExists('subscriptions');
     }
 };
