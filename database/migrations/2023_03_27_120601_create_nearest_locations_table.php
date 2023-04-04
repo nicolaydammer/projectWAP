@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nearest_location', function (Blueprint $table) {
+        Schema::create('nearest_locations', function (Blueprint $table) {
             $table->id();
             $table->integer('station_id')->nullable(false);
             $table->integer('country_id')->nullable()->default(null);
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nearest_location');
+        Schema::dropIfExists('nearest_locations');
     }
 };
