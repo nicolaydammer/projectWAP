@@ -67,13 +67,13 @@ CSS for Dashboard page
     font-size: 70px;
 }
 
-#dashboard-welkom-text {
+#dashboard-welcome-text {
     text-align: center;
     margin-bottom: 80px;
     font-size: 30px;
 }
 
-.dashbord-table {
+.dashboard-table {
     width: 70%;
     border-collapse: collapse;
     border: solid 1px #ccc;
@@ -91,4 +91,26 @@ th {
     padding: 10px;
     background-color: #1690A7;
     color: #fff;
+}
+/*
+CSS for administrator page
+*/
+
+#add-subscription-form  {
+    cursor: pointer;
+    margin: 15px;
+    justify-content: center;
+    align-items: center;
+    height: 15vh;
+}
+#cname {
+    margin: 10px;
+
+}
+#klant-submit-button {
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 5px;
+
+
 }

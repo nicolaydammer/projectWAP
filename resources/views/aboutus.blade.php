@@ -1,4 +1,4 @@
 @include("partial.header")
-<h1>Wetenschapper</h1>
-
+<h1>Over ons</h1>
+<p>Lekker weer vandaag hè?</p>
 @include("partial.footer")

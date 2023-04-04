@@ -1,10 +1,8 @@
-
 @include("partial.header")
-<h1 id="dashboard-title">Dashboard</h1>
-<p id="dashboard-welcome-text">Welkom, {{ $name }}</p>
-
+<h1>Wetenschapper</h1>
+<p id="scientist-welcome-text"></p>
 <table class="dashboard-table">
-    <tr class="vakjes">
+    <tr class="cells">
         <th>Weerstation</th>
         <th>Stad</th>
         <th>Status</th>
@@ -17,3 +15,7 @@
         </tr>
     @endforeach
 </table>
+<br>
+
+
+@include("partial.footer")

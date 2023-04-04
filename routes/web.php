@@ -23,6 +23,8 @@ Route::post('/login', 'App\Http\Controllers\Login@login')->name('login');
 
 Route::get('/dashboard', 'App\Http\Controllers\Dashboard@index')->name('dashboard');
 
-Route::get('/wetenschapper' , 'App\Http\Controllers\Wetenschapper@index')->name('wetenschapper');
+Route::get('/scientist', "App\Http\Controllers\Scientist@index")->name('scientist');
 
 Route::get('/administratie' , 'App\Http\Controllers\Administratie@index')->name('administratie');
+
+Route::get('/aboutus', 'App\Http\Controllers\AboutUs@index')->name('aboutus');

@@ -18,7 +18,7 @@
                     <a class="nav-link" href="/dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/wetenschapper">Wetenschapper</a>
+                    <a class="nav-link" href="/scientist">Wetenschapper</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="/administratie">Administratie</a>
