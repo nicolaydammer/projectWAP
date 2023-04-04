@@ -92,3 +92,31 @@ th {
     background-color: #1690A7;
     color: #fff;
 }
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main .dashboard-table-2 {
+    width: 100%;
+    max-width: 768px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin-top: 25px;
+}
+
+main .dashboard-table-2 .item {
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+
+}
+
+main .dashboard-table-2 .item:last-of-type {
+    border-bottom: none;
+}
+
+main .dashboard-table-2 .item:hover {
+    rgba(0, 0, 0, 0.05);
+}
