@@ -10,15 +10,19 @@ use LaravelIdea\Helper\App\Models\_IH_Station_C;
 
 class StationRepository implements StationRepositoryInterface
 {
-    public static function getAllStations(array $filter): array|LengthAwarePaginator|_IH_Station_C
+    public static function getAllStations(?array $filter): array|LengthAwarePaginator|_IH_Station_C
     {
+        if (empty($filter)) {
+            return Station::paginate(15);
+        }
+
         return Station::orderBy($filter['order_by'], $filter['order'])
         ->paginate(15);
     }
 
-    public static function getAllInvalidStations(array $filter): LengthAwarePaginator|array|_IH_Station_C
+    public static function getAllInvalidStations(?array $filter): LengthAwarePaginator|array|_IH_Station_C
     {
-        return Station::whereHas('incorrect_data')->paginate(20);
+        return Station::whereHas('incorrect_data')->paginate(15);
     }
 
     public static function getStationById(int $id): array|Station|_IH_Station_C
