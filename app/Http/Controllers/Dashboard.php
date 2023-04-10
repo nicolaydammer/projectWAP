@@ -15,13 +15,17 @@ class Dashboard extends Controller
     public function index(Request $request): View
     {
         return view('dashboard', [
-            'stations' => StationRepository::getAllStations(),
+            'stations' => StationRepository::getAllStations($request->get('filter')),
         ]);
     }
 
     public function search(Request $request)
     {
+        $name = $request->get('name');
 
+        return view('dashboard', [
+            'stations' => StationRepository::searchStationByName($name),
+        ]);
     }
 
     public function getStationById(Request $request): Station

@@ -4,9 +4,26 @@
 <main>
     <table class="dashbord-table">
         <tr class="vakjes">
-            <th class="sortable" data-sortby="station.name">Weerstation <i class="fa-solid fa-sort"></i></th>
-            <th class="sortable" data-sortby="station.longitude">Stad <i class="fa-solid fa-sort"></i></th>
-            <th class="sortable" data-sortby="station.latitude">Status <i class="fa-solid fa-sort"></i></th>
+
+            <th class="sortable" data-sortby="station.name"><a href="{{
+    route('dashboard', [
+    'page' => $stations->currentPage(),
+    'filter' => ['order_by' => 'stations.name', 'order' => 'asc']
+    ])
+    }}">Weerstation <i class="fa-solid fa-sort"></i></a></th>
+
+            <th class="sortable" data-sortby="station.longitude"><a href="{{
+        route('dashboard', [
+    'page' => $stations->currentPage(),
+    'filter' => ['order_by' => 'stations.name', 'order' => 'asc']
+    ])
+    }}">Stad <i class="fa-solid fa-sort"></i></a></th>
+            <th class="sortable" data-sortby="station.latitude"><a href="{{
+        route('dashboard', [
+    'page' => $stations->currentPage(),
+    'filter' => ['order_by' => 'stations.name', 'order' => 'asc']
+    ])
+    }}">Status <i class="fa-solid fa-sort"></i></a></th>
         </tr>
 
         @foreach($stations->items() as $station)
@@ -52,6 +69,12 @@
                 </a>
             </li>
         </ul>
+        <form action="{{ route('dashboard.search') }}" method="get">
+            <label for="search">
+                Station naam: <input type="search" name="name" />
+            </label>
+            <input type="submit" value="Zoeken">
+        </form>
     </nav>
 </main>
 @include("partial.footer")

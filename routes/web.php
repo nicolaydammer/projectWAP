@@ -25,7 +25,7 @@ Route::post('/login', 'App\Http\Controllers\Login@login')->name('login');
 
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [Dashboard::class, 'index'])->name('dashboard');
-    Route::get('/search/{stationName}', [Dashboard::class, 'search'])->name('dashboard.search');
+    Route::get('/search', [Dashboard::class, 'search'])->name('dashboard.search');
     Route::get('/{id}', [Dashboard::class, 'getStationById']);
 });
 
