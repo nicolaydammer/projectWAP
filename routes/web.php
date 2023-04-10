@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Route;
+use const App\Http\Controllers\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +23,11 @@ Route::get('/login', 'App\Http\Controllers\Login@index');
 
 Route::post('/login', 'App\Http\Controllers\Login@login')->name('login');
 
-Route::get('/dashboard', 'App\Http\Controllers\Dashboard@index')->name('dashboard');
+Route::prefix('dashboard')->group(function () {
+    Route::get('/', [Dashboard::class, 'index'])->name('dashboard');
+    Route::get('/search/{stationName}', [Dashboard::class, 'search'])->name('dashboard.search');
+    Route::get('/{id}', [Dashboard::class, 'getStationById']);
+});
 
 Route::get('/wetenschapper' , 'App\Http\Controllers\Wetenschapper@index')->name('wetenschapper');
 

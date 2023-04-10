@@ -64,13 +64,10 @@ CSS for Dashboard page
 #dashboard-title {
     text-align: center;
     margin-bottom: 40px;
-    font-size: 70px;
 }
 
 #dashboard-welkom-text {
     text-align: center;
-    margin-bottom: 80px;
-    font-size: 30px;
 }
 
 .dashbord-table {

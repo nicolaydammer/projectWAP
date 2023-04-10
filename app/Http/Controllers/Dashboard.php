@@ -3,23 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Station;
+use App\Models\User;
+use App\Repositories\StationRepository;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use function Illuminate\Events\queueable;
 
-class dashboard extends Controller
+class Dashboard extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         return view('dashboard', [
-            'name' => "Alwin Stecher",
-            'stations' => [
-                ['id' => 124, 'city' => 'Groningen', 'status' => 1],
-                ['id' => 125, 'city' => 'Groningen', 'status' => 1],
-                ['id' => 127, 'city' => 'Groningen', 'status' => 2],
-                ['id' => 123, 'city' => 'Groningen', 'status' => 1]
-            ]
+            'stations' => StationRepository::getAllStations(),
         ]);
     }
 
+    public function search(Request $request)
+    {
 
+    }
+
+    public function getStationById(Request $request): Station
+    {
+        return StationRepository::getStationById($request->get('id'));
+    }
 }
