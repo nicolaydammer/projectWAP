@@ -1,3 +1,5 @@
+@import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
+
 * {
     font-family: sans-serif;
     box-sizing: border-box;
@@ -114,6 +116,6 @@ main {
     border-bottom: none;
 }
 
-.dashboard-table-2 .item:hover {
-    rgba(0, 0, 0, 0.05);
-}
+//.dashboard-table-2 .item:hover {
+//    rgba(0, 0, 0, 0.05);
+//}

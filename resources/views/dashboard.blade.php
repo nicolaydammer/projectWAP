@@ -4,9 +4,9 @@
 <main>
     <table class="dashbord-table">
         <tr class="vakjes">
-            <th>Weerstation</th>
-            <th>Stad</th>
-            <th>Status</th>
+            <th class="sortable" data-sortby="station.name">Weerstation <i class="fa-solid fa-sort"></i></th>
+            <th class="sortable" data-sortby="station.longitude">Stad <i class="fa-solid fa-sort"></i></th>
+            <th class="sortable" data-sortby="station.latitude">Status <i class="fa-solid fa-sort"></i></th>
         </tr>
 
         @foreach($stations->items() as $station)
@@ -54,5 +54,4 @@
         </ul>
     </nav>
 </main>
-<script src="{{ asset('js/app.js') }}"></script>
 @include("partial.footer")
