@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App\Interfaces\StationRepositoryInterface;
 use App\Models\Station;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Collection;
 use LaravelIdea\Helper\App\Models\_IH_Station_C;
 
 class StationRepository implements StationRepositoryInterface
