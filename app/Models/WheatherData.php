@@ -21,6 +21,7 @@ class WheatherData extends Model
      * @var array
      */
     protected $fillable = [
+        'station_id',
         'date_time',
         'temperature',
         'dewpoint',
