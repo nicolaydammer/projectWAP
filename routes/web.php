@@ -28,3 +28,5 @@ Route::get('/scientist', "App\Http\Controllers\Scientist@index")->name('scientis
 Route::get('/administratie' , 'App\Http\Controllers\Administratie@index')->name('administratie');
 
 Route::get('/aboutus', 'App\Http\Controllers\AboutUs@index')->name('aboutus');
+
+Route::post('/customer', 'App\Http\Controllers\Customer@store')->name('customer.store');
