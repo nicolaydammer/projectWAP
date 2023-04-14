@@ -35,4 +35,9 @@ Route::resource('users', \App\Http\Controllers\UserController::class)
     ->only(['index', 'edit', 'update', 'create', 'store','destroy'])
     ->middleware(['auth', 'verified', 'role:admin']);
 
+
+Route::resource('customers', \App\Http\Controllers\CustomerController::class)
+    ->only(['index', 'create'])
+    ->middleware(['auth', 'verified', 'role:admin',]);
+
 require __DIR__.'/auth.php';

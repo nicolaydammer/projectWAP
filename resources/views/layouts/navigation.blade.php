@@ -22,6 +22,14 @@
 
                     </x-nav-link>
                     @endrole
+
+{{--                    @role('customer_service')--}}
+                    <x-nav-link :href="route('customers.index')" :active="request()->routeIs('customers.index')">
+
+                        {{ __('Klanten overzicht') }}
+
+                    </x-nav-link>
+{{--                    @endrole--}}
                 </div>
             </div>
 
