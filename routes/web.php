@@ -3,7 +3,6 @@
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use const App\Http\Controllers\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,18 +24,14 @@ Route::get('/login', 'App\Http\Controllers\Login@index');
 Route::post('/login', 'App\Http\Controllers\Login@login')->name('login');
 
 Route::prefix('dashboard')->group(function () {
-    });
-
-Route::get('/dashboard', function () {
     Route::get('/', [Dashboard::class, 'index'])->name('dashboard');
     Route::get('/search', [Dashboard::class, 'search'])->name('dashboard.search');
     Route::get('/{id}', [Dashboard::class, 'getStationById']);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/wetenschapper', 'App\Http\Controllers\Wetenschapper@index')->name('wetenschapper');
 
-Route::get('/wetenschapper' , 'App\Http\Controllers\Wetenschapper@index')->name('wetenschapper');
-
-Route::get('/administratie' , 'App\Http\Controllers\Administratie@index')->name('administratie');
+Route::get('/administratie', 'App\Http\Controllers\Administratie@index')->name('administratie');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -46,7 +41,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::resource('users', \App\Http\Controllers\UserController::class)
-    ->only(['index', 'edit', 'update', 'create', 'store','destroy'])
+    ->only(['index', 'edit', 'update', 'create', 'store', 'destroy'])
     ->middleware(['auth', 'verified', 'role:admin']);
 
 
@@ -54,4 +49,4 @@ Route::resource('customers', \App\Http\Controllers\CustomerController::class)
     ->only(['index', 'create'])
     ->middleware(['auth', 'verified', 'role:admin',]);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
