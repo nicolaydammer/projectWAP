@@ -37,6 +37,14 @@ class WheatherData extends Model
     ];
 
     /**
+     * @return array|string[]
+     */
+    public function getFillable(): array
+    {
+        return $this->fillable;
+    }
+
+    /**
      * Get the station that belongs to these wheather data.
      */
     public function station(): BelongsTo
