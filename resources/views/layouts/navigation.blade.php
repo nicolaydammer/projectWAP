@@ -30,6 +30,14 @@
 
                     </x-nav-link>
 {{--                    @endrole--}}
+
+{{--                    @role('scientist')--}}
+                    <x-nav-link :href="route('vergelijkstations')" :active="request()->routeIs('vergelijkstations')">
+
+                        {{ __('Vergelijk weerstations') }}
+
+                    </x-nav-link>
+{{--                    @endrole--}}
                 </div>
             </div>
 
