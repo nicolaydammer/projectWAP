@@ -61,6 +61,27 @@ class WheatherData extends Model
         return $this->HasOne(IncorrectData::class);
     }
 
+    public static function arrayKeys()
+    {
+        return [
+            'stn',
+            'temp',
+            'date',
+            'time',
+            'dewp',
+            'stp',
+            'slp',
+            'visib',
+            'wdsp',
+            'prcp',
+            'sndp',
+            'frshtt',
+            'cldc',
+            'wnddir'
+        ];
+
+    }
+
 
 
 

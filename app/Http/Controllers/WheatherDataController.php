@@ -14,27 +14,34 @@ class WheatherDataController
     public function index(WheatherDataRequest $request)
     {
         $correctData = true;
-        $fillableData = WheatherData::getFillable();
-        foreach ($fillableData as $data) {
+        $arrayDataNames = WheatherData::arrayKeys();
+        $newData = [];
+        foreach ($arrayDataNames as $data) {
             if ($data === 'temp') {
                 if (!$this->controlTemperature($request, $data)) {
                     $correctData = false;
-                    //$request->get($data) = $this->calculateNewData($request, $data);
+                    $newData[] = $this->calculateNewData($request, $data);
                 }
             }
             if ($request->get($data) === 'null') {
                 $correctData = false;
-                //$request->get($data) = $this->calculateNewData($request, $data);
+                $newData[] = $this->calculateNewData($request, $data);
             }
 
         }
         $stationId = Station::find($request->get('stn'));
         if (!$correctData){
+            // first put incorrect data in the IncorrectData table
             $incorrectData = new IncorrectData();
             $incorrectData->station_id = $stationId;
             $this->addData($request, $incorrectData);
+            // create new array with the right data and add this to the WheatherData table
+            $newArray = array_combine($request, $newData);
+            $wheatherData = new WheatherData();
+            $this->addData($newArray, $wheatherData);
         }
         else {
+            // if no incorrect data add data to WheatherData table
             $wheatherData = new WheatherData();
             $wheatherData->station_id = $stationId;
             $this->addData($request, $wheatherData);
