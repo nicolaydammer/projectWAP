@@ -18,7 +18,6 @@ class Country extends Model
     protected $fillable = [
         'country_code',
         'country',
-        'timezone'
     ];
 
     /**
