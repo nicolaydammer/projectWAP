@@ -30,6 +30,12 @@ Route::prefix('dashboard')->group(function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/wetenschapper', 'App\Http\Controllers\Wetenschapper@index')->name('wetenschapper');
+Route::get('/wetenschapper/vergelijk', 'App\Http\Controllers\Wetenschapper@compare')
+    ->name('vergelijkstations')
+    ->middleware(['auth', 'verified', 'role:admin']);
+Route::post('/wetenschapper/vergelijk', [\App\Http\Controllers\Wetenschapper::class, 'compareTwo'])
+    ->name('vergelijk2')
+    ->middleware(['auth', 'verified', 'role:admin']);
 
 Route::get('/administratie', 'App\Http\Controllers\Administratie@index')->name('administratie');
 
@@ -48,5 +54,13 @@ Route::resource('users', \App\Http\Controllers\UserController::class)
 Route::resource('customers', \App\Http\Controllers\CustomerController::class)
     ->only(['index', 'create'])
     ->middleware(['auth', 'verified', 'role:admin',]);
+//
+//Route::resource('scientists', \App\Http\Controllers\Wetenschapper::class)
+//    ->only(['index', 'compare'])
+//    ->middleware(['auth', 'verified', 'role:admin']);
+//
+//Route::get('scientists/compare', [\App\Http\Controllers\Wetenschapper::class, 'compare'])
+//    ->middleware(['auth', 'verified', 'role:admin']);
+
 
 require __DIR__ . '/auth.php';
