@@ -17,37 +17,37 @@
     </select>
     <br>
     <label for="weatherDataType">Types data</label><br>
-    <input type="checkbox" id="temperature" name="temperatue">
+    <input type="checkbox" id="temperature" name="customerDataList[]" value="1">
     <label for="temperature"> Temperatuur</label><br>
 
-    <input type="checkbox" id="precipitation" name="precipitation">
+    <input type="checkbox" id="precipitation" name="customerDataList[]" value="2">
     <label for="precipitation"> Neerslag</label><br>
 
-    <input type="checkbox" id="dewpoint" name="dewpoint">
+    <input type="checkbox" id="dewpoint" name="customerDataList[]" value="3">
     <label for="dewpoint"> Dauwpunt</label><br>
 
-    <input type="checkbox" id="stdPressure" name="standard pressure">
+    <input type="checkbox" id="stdPressure" name="customerDataList[]" value="4">
     <label for="stdPressure"> Standaard druk</label><br>
 
-    <input type="checkbox" id="sealevelPressure" name="Sea level pressure">
+    <input type="checkbox" id="sealevelPressure" name="customerDataList[]" value="5">
     <label for="sealevelPressure"> Druk op zeeniveau</label><br>
 
-    <input type="checkbox" id="visibility" name="visibility">
+    <input type="checkbox" id="visibility" name="customerDataList[]" value="6">
     <label for="visibility"> Zichtbaarheid</label><br>
 
-    <input type="checkbox" id="wind_speed" name="wind_speed">
+    <input type="checkbox" id="wind_speed" name="customerDataList[]" value="7">
     <label for="wind_speed"> Windsnelheid</label><br>
 
-    <input type="checkbox" id="snow_depth" name="snow_depth">
+    <input type="checkbox" id="snow_depth" name="customerDataList[]" value="8">
     <label for="snow_depth"> Sneeuw diepte</label><br>
 
-    <input type="checkbox" id="humidity" name="humidity">
+    <input type="checkbox" id="humidity" name="customerDataList[]" value="9">
     <label for="humidity"> Luchtvochtigheid</label><br>
 
-    <input type="checkbox" id="cloud_cover" name="cloud_cover">
+    <input type="checkbox" id="cloud_cover" name="customerDataList[]" value="10">
     <label for="cloud_cover"> Bewolking</label><br>
 
-    <input type="checkbox" id="wind_dir" name="wind_dir">
+    <input type="checkbox" id="wind_dir" name="customerDataList[]" value="11">
     <label for="wind_dir"> Windrichting</label><br>
 
     <input type="submit" value="Klant toevoegen" id="klant-submit-button">

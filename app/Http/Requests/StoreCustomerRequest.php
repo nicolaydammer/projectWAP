@@ -24,8 +24,9 @@ class StoreCustomerRequest extends FormRequest
     {
         return [
             //Validation rules
-            'customerName' => 'required|max:255|min:3|string'
-
-        ];
+            'customerName' => 'required|max:255|min:3|string',
+            'customerDataList' => 'required|min:1',
+                'customerDataList.' => 'numeric',
+            ];
     }
 }
