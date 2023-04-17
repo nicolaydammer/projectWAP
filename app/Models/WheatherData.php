@@ -21,6 +21,7 @@ class WheatherData extends Model
      * @var array
      */
     protected $fillable = [
+        'station_id',
         'date_time',
         'temperature',
         'dewpoint',
@@ -37,6 +38,14 @@ class WheatherData extends Model
     ];
 
     /**
+     * @return array|string[]
+     */
+    public function getFillable(): array
+    {
+        return $this->fillable;
+    }
+
+    /**
      * Get the station that belongs to these wheather data.
      */
     public function station(): BelongsTo
@@ -50,6 +59,27 @@ class WheatherData extends Model
     public function incorrectData(): HasOne
     {
         return $this->HasOne(IncorrectData::class);
+    }
+
+    public static function arrayKeys()
+    {
+        return [
+            'stn',
+            'temp',
+            'date',
+            'time',
+            'dewp',
+            'stp',
+            'slp',
+            'visib',
+            'wdsp',
+            'prcp',
+            'sndp',
+            'frshtt',
+            'cldc',
+            'wnddir'
+        ];
+
     }
 
 
