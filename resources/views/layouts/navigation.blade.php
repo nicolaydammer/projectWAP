@@ -6,7 +6,8 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+{{--                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />--}}
+                        <img src="{{ asset('img/LogoIWA.jpg') }}" alt="IWA Logo" width="70" height="70">
                     </a>
                 </div>
 
@@ -27,6 +28,14 @@
                     <x-nav-link :href="route('customers.index')" :active="request()->routeIs('customers.index')">
 
                         {{ __('Klanten overzicht') }}
+
+                    </x-nav-link>
+{{--                    @endrole--}}
+
+{{--                    @role('scientist')--}}
+                    <x-nav-link :href="route('vergelijkstations')" :active="request()->routeIs('vergelijkstations')">
+
+                        {{ __('Vergelijk weerstations') }}
 
                     </x-nav-link>
 {{--                    @endrole--}}
