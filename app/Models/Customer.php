@@ -25,6 +25,7 @@ class Customer extends Model
      */
     public function customerable():MorphTo
     {
+
         return $this->morphTo();
     }
 }

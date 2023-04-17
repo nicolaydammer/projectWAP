@@ -16,14 +16,18 @@
                             <tr class="border-b">
                                 <th class="text-left p-3 px-5">ID</th>
                                 <th class="text-left p-3 px-5">Name</th>
-                                <th class="text-left p-3 px-5">Subscription</th>
+{{--                                <th class="text-left p-3 px-5">Subscription</th>--}}
                                 <th class="text-left p-3 px-5">Contract</th>
                                 <th></th>
                             </tr>
+{{--                            {{$customertest->name}}--}}
                             @foreach($customers as $customer)
                                 <tr class="border-b hover:bg-orange-100 bg-gray-100">
                                     <td class="p-3 px-5">{{ $customer->id }}</td>
                                     <td class="p-3 px-5">{{ $customer->name }}</td>
+                                    <td class="p-3 px-5">{{ $customer->customerable->id }}</td>
+{{--                                    {{ optional($customer->customerable->contractSpecification)->timezone }}--}}
+
 {{--                                    <td class="p-3 px-5">{{ $user->email }}</td>--}}
                                     <td class="p-3 px-5">
 
