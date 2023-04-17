@@ -6,10 +6,8 @@ use App\Http\Requests\WheatherDataRequest;
 use App\Models\IncorrectData;
 use App\Models\Station;
 use App\Models\WheatherData;
-use http\Env\Request;
-use Illuminate\Support\Carbon;
 
-class WheatherDataController
+class WheatherDataController extends Controller
 {
     public function index(WheatherDataRequest $request)
     {

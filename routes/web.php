@@ -68,6 +68,4 @@ Route::resource('customers', \App\Http\Controllers\CustomerController::class)
 //Route::get('scientists/compare', [\App\Http\Controllers\Wetenschapper::class, 'compare'])
 //    ->middleware(['auth', 'verified', 'role:admin']);
 
-Route::post('/postWheatherData', 'App\Http\Controllers\WheatherDataController@index')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class, 'auth']);;
-
 require __DIR__ . '/auth.php';
