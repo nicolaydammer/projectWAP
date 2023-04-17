@@ -7,7 +7,7 @@ use DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class StationsSeeder extends Seeder
+class StationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
