@@ -15,30 +15,27 @@ class WheatherDataController
     {
         $correctData = true;
         $arrayDataNames = WheatherData::arrayKeys();
-        $newData = [];
         foreach ($arrayDataNames as $data) {
             if ($data === 'temp') {
                 if (!$this->controlTemperature($request, $data)) {
                     $correctData = false;
-                    $newData[] = $this->calculateNewData($request, $data);
                 }
             }
             if ($request->get($data) === 'null') {
                 $correctData = false;
-                $newData[] = $this->calculateNewData($request, $data);
             }
 
         }
-        $stationId = Station::find($request->get('stn'));
+        $stationId = Station::query()->where('name', $request->get('stn'))->value('id');
+
         if (!$correctData){
             // first put incorrect data in the IncorrectData table
             $incorrectData = new IncorrectData();
             $incorrectData->station_id = $stationId;
             $this->addData($request, $incorrectData);
             // create new array with the right data and add this to the WheatherData table
-            $newArray = array_combine($request, $newData);
             $wheatherData = new WheatherData();
-            $this->addData($newArray, $wheatherData);
+            $this->addData($request, $wheatherData);
         }
         else {
             // if no incorrect data add data to WheatherData table
@@ -50,18 +47,23 @@ class WheatherDataController
 
     public function addData(WheatherDataRequest $request, $model)
     {
-        $model->date_time = Carbon::parse($request->get('date').$request->get('time')) ;
-        $model->temperature = $request->get('temp');
-        $model->dewpoint = $request->get('dewp');
-        $model->standard_pressure = $request->get('stp');
-        $model->sea_level_pressure = $request->get('SLP');
-        $model->visibility = $request->get('visib');
-        $model->wind_speed = $request->get('wdsp');
-        $model->precipation = $request->get('prcp');
-        $model->snow_depth = $request->get('sndp');
-        $model->humidity = $request->get('frshtt');
-        $model->cloud_cover = $request->get('cldc');
-        $model->wind_direction = $request->get('wnddir');
+        $arrayDataNames = WheatherData::arrayKeys();
+        foreach ($arrayDataNames as $data) {
+            if($data === 'temp') {
+                if (!$this->controlTemperature($request, $data)) {
+                    $model->attr = $this->calculateNewData($request, $data);
+                }
+                else {
+                    $model->attr = $request->get($data);
+                }
+            }
+            elseif ($request->get($data) === 'null') {
+                $model->attr = $this->calculateNewData($request, $data);
+            }
+            else {
+                $model->attr = $request->get($data);
+            }
+        }
     }
 
     public function controlTemperature(WheatherDataRequest $request, $data)
