@@ -43,17 +43,29 @@
     <input type="checkbox" id="windSpeed" name="customerDataList['windSpeed']" value="7">
     <label for="windSpeed"> Windsnelheid</label><br>
 
-    <input type="checkbox" id="snow_depth" name="customerDataList[]" value="8">
-    <label for="snow_depth"> Sneeuw diepte</label><br>
+    <input type="checkbox" id="snowDepth" name="customerDataList['snowDepth']" value="8">
+    <label for="snowDepth"> Sneeuw diepte</label><br>
 
-    <input type="checkbox" id="humidity" name="customerDataList[]" value="9">
+    <input type="checkbox" id="humidity" name="customerDataList['humidity']" value="9">
     <label for="humidity"> Luchtvochtigheid</label><br>
 
-    <input type="checkbox" id="cloud_cover" name="customerDataList[]" value="10">
-    <label for="cloud_cover"> Bewolking</label><br>
+    <input type="checkbox" id="cloudCover" name="customerDataList['cloudCover']" value="10">
+    <label for="cloudCover"> Bewolking</label><br>
 
-    <input type="checkbox" id="wind_dir" name="customerDataList[]" value="11">
-    <label for="wind_dir"> Windrichting</label><br>
+    <input type="checkbox" id="windDir" name="customerDataList['windDir']" value="11">
+    <label for="windDir"> Windrichting</label><br>
+
+    <input type="text" id="latitude" name="latitude">
+    <label for="latitude">lengtegraad</label><br>
+
+    <input type="text" id="longitude" name="longitude">
+    <label for="longitude">breedtegraad</label><br>
+
+    <input type="text" id="country" name="country">
+    <label for="country">Land</label><br>
+
+    <input type="text" id="timezone" name="timezone">
+    <label for="timezone">Tijdzone</label><br>
 
     <input type="submit" value="Klant toevoegen" id="klant-submit-button">
 
