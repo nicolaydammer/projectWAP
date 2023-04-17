@@ -16,9 +16,17 @@ class WheatherDataController
         $correctData = true;
         $fillableData = WheatherData::getFillable();
         foreach ($fillableData as $data) {
+            if ($data === 'temp') {
+                if (!$this->controlTemperature($request, $data)) {
+                    $correctData = false;
+                    //$request->get($data) = $this->calculateNewData($request, $data);
+                }
+            }
             if ($request->get($data) === 'null') {
                 $correctData = false;
+                //$request->get($data) = $this->calculateNewData($request, $data);
             }
+
         }
         $stationId = Station::find($request->get('stn'));
         if (!$correctData){
@@ -47,5 +55,33 @@ class WheatherDataController
         $model->humidity = $request->get('frshtt');
         $model->cloud_cover = $request->get('cldc');
         $model->wind_direction = $request->get('wnddir');
+    }
+
+    public function controlTemperature(WheatherDataRequest $request, $data)
+    {
+        if ($request->get($data) > $this->calculateNewData($request, $data) * 1.2||$request->get($data) < $this->calculateNewData($request, $data) * 0.8 ) {
+            return false;
+        }
+        return true;
+    }
+
+    public function calculateNewData(WheatherDataRequest $request,$data)
+    {
+        $nrDataPoints = 30;
+        $totalOfData = 0;
+        $totalOfDelta = 0;
+        $previousPoint = 0;
+        // query 30 data punten van deze station van deze specifieke data ophalen
+        $dataPoints = WheatherData::query()->where('station_id', $request->get('stn'), )->value($data)->limit(30);
+        // $data = SELECT * FROM wheatherData WHERE station_id = $this->station_id ORDER BY desc
+        foreach ($dataPoints as $point) {
+              $totalOfData += $point;             // elk punt bij elkaar optellen
+              $delta = $point - $previousPoint;   // delta berekenen
+              $totalOfDelta += $delta;            // elk delta bij elkaar optellen
+              $previousPoint = $point;
+        }
+        $averageData = $totalOfData / $nrDataPoints;
+        $averageDelta = $totalOfDelta / $nrDataPoints;
+        return $averageData + $averageDelta;
     }
 }
