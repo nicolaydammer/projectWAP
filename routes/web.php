@@ -53,7 +53,7 @@ Route::resource('users', \App\Http\Controllers\UserController::class)
 
 Route::resource('customers', \App\Http\Controllers\CustomerController::class)
     ->only(['index', 'create'])
-    ->middleware(['auth', 'verified', 'role:admin',]);
+    ->middleware(['auth', 'verified', 'role:customer_service',]);
 //
 //Route::resource('scientists', \App\Http\Controllers\Wetenschapper::class)
 //    ->only(['index', 'compare'])

@@ -42,8 +42,8 @@
                             @foreach($stations->items() as $station)
                                 <tr class="border-b hover:bg-orange-100 bg-gray-100" id="{{ $station->id }}">
                                     <td class="p-3 px-5">{{ $station->name }}</td>
-                                    <td class="p-3 px-5">{{ $station->longitude }}</td>
-                                    <td class="p-3 px-5">{{ $station->latitude }}</td>
+                                    <td class="p-3 px-5">{{ $station->longitude }} {{ $station->latitude }}</td>
+                                    <td class="p-3 px-5">OK</td>
                                 </tr>
                             @endforeach
 
