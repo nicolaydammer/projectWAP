@@ -10,6 +10,12 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Contract extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'frequency',
+        'update_time'
+        ];
+
     /**
      * Get the customer of the contract.
      */
