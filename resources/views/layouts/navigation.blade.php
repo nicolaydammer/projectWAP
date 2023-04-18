@@ -30,6 +30,12 @@
                         {{ __('Klanten overzicht') }}
 
                     </x-nav-link>
+                    <x-nav-link :href="route('administratie')" :active="request()->routeIs('administratie')">
+
+                        {{ __('Klanten toevoegen') }}
+
+                    </x-nav-link>
+
                     @endrole
 
                     @role('scientist')
@@ -38,7 +44,9 @@
                         {{ __('Vergelijk weerstations') }}
 
                     </x-nav-link>
+
                     @endrole
+
                 </div>
             </div>
 
