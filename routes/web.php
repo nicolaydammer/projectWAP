@@ -33,10 +33,10 @@ Route::get('/scientist', "App\Http\Controllers\Scientist@index")->name('scientis
 Route::get('/wetenschapper', 'App\Http\Controllers\Wetenschapper@index')->name('wetenschapper');
 Route::get('/wetenschapper/vergelijk', 'App\Http\Controllers\Wetenschapper@compare')
     ->name('vergelijkstations')
-    ->middleware(['auth', 'verified', 'role:admin']);
+    ->middleware(['auth', 'verified', 'role:scientist']);
 Route::post('/wetenschapper/vergelijk', [\App\Http\Controllers\Wetenschapper::class, 'compareTwo'])
     ->name('vergelijk2')
-    ->middleware(['auth', 'verified', 'role:admin']);
+    ->middleware(['auth', 'verified', 'role:scientist']);
 
 Route::get('/administratie' , 'App\Http\Controllers\Administratie@index')->name('administratie');
 
@@ -59,7 +59,7 @@ Route::resource('users', \App\Http\Controllers\UserController::class)
 
 Route::resource('customers', \App\Http\Controllers\CustomerController::class)
     ->only(['index', 'create'])
-    ->middleware(['auth', 'verified', 'role:customer_service',]);
+    ->middleware(['auth', 'verified', 'role:customer_service']);
 //
 //Route::resource('scientists', \App\Http\Controllers\Wetenschapper::class)
 //    ->only(['index', 'compare'])
