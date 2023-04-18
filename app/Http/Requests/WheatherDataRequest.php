@@ -22,18 +22,19 @@ class WheatherDataRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date_time' => 'required',
-            'temperature' => 'required | numeric',
-            'dewpoint' => 'required | numeric',
-            'standard_pressure' => 'required | numeric',
-            'sea_level_pressure' => 'required | numeric',
-            'visibility' => 'required | numeric',
-            'wind_speed' => 'required | numeric',
-            'precipation' => 'required | numeric',
-            'snow_depth' => 'required | numeric',
-            'humidity' => 'required',
-            'cloud_cover' => 'required | numeric',
-            'wind_direction' => 'required | numeric',
+            'date' => 'required',
+            'time' => 'required',
+            'temp' => 'required | numeric',
+            'dewp' => 'required | numeric',
+            'stp' => 'required | numeric',
+            'slp' => 'required | numeric',
+            'visib' => 'required | numeric',
+            'wdsp' => 'required | numeric',
+            'prcp' => 'required | numeric',
+            'sndp' => 'required | numeric',
+            'frshtt' => 'required',
+            'cldc' => 'required | numeric',
+            'wnddir' => 'required | numeric',
             'events'
         ];
     }
