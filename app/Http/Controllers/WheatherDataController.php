@@ -6,6 +6,8 @@ use App\Http\Requests\WheatherDataRequest;
 use App\Models\IncorrectData;
 use App\Models\Station;
 use App\Models\WheatherData;
+use App\Models\Customer;
+use Illuminate\Http\Request;
 
 class WheatherDataController extends Controller
 {
@@ -43,7 +45,7 @@ class WheatherDataController extends Controller
         }
     }
 
-    public function addData(WheatherDataRequest $request, $model)
+    private function addData(WheatherDataRequest $request, $model)
     {
         $arrayDataNames = WheatherData::arrayKeys();
         foreach ($arrayDataNames as $data) {
@@ -64,7 +66,7 @@ class WheatherDataController extends Controller
         }
     }
 
-    public function controlTemperature(WheatherDataRequest $request, $data)
+    private function controlTemperature(WheatherDataRequest $request, $data)
     {
         if ($request->get($data) > $this->calculateNewData($request, $data) * 1.2||$request->get($data) < $this->calculateNewData($request, $data) * 0.8 ) {
             return false;
@@ -72,7 +74,7 @@ class WheatherDataController extends Controller
         return true;
     }
 
-    public function calculateNewData(WheatherDataRequest $request,$data)
+    private function calculateNewData(WheatherDataRequest $request,$data)
     {
         $nrDataPoints = 30;
         $totalOfData = 0;
@@ -90,5 +92,12 @@ class WheatherDataController extends Controller
         $averageData = $totalOfData / $nrDataPoints;
         $averageDelta = $totalOfDelta / $nrDataPoints;
         return $averageData + $averageDelta;
+    }
+
+    public function retrieveWeatherData(Request $request) {
+        $customer = Customer::query()->where('token', '=', $request->header('token'));
+
+        //todo: implement retrieve weather data
+        return '';
     }
 }

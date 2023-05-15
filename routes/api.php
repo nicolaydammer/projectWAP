@@ -14,8 +14,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::post('/postWheatherData', 'App\Http\Controllers\WheatherDataController@index');
+
+Route::group([
+    'prefix' => '/iwa',
+    'middleware' => [
+        'auth',
+        'verifyToken',
+    ]], function () {
+
+    Route::group(['prefix' => '/abonnement'], function () {
+
+        Route::get('/', 'App\Http\Controllers\WheatherDataController@retrieveWeatherData');
+        Route::get('/stations', 'App\Http\Controllers\StationController@ListStations');
+        Route::get('/station/naam', 'App\Http\Controllers\StationController@getStationByName');
+    });
+
+    Route::group(['prefix' => '/contracten'], function () {
+
+//        Route::get('/querynr', ''); todo: wat moet dit doen?
+        Route::get('/stations', 'App\Http\Controllers\StationController@ListStations');
+        Route::get('/station/naam', 'App\Http\Controllers\StationController@getStationByName');
+    });
+});

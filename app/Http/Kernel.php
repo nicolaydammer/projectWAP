@@ -2,10 +2,18 @@
 
 namespace App\Http;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Routing\Router;
 
 class Kernel extends HttpKernel
 {
+    public function __construct(Application $app, Router $router)
+    {
+        parent::__construct($app, $router);
+        $this->prependToMiddlewarePriority(\App\Http\Middleware\ExpectsJson::class);
+    }
+
     /**
      * The application's global HTTP middleware stack.
      *
@@ -42,6 +50,7 @@ class Kernel extends HttpKernel
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\ExpectsJson::class,
         ],
     ];
 
@@ -66,5 +75,7 @@ class Kernel extends HttpKernel
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
+        'verifyToken' => \App\Http\Middleware\VerifyToken::class,
+        'expectsJson' => \App\Http\Middleware\ExpectsJson::class,
     ];
 }
