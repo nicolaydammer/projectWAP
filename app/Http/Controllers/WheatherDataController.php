@@ -28,41 +28,57 @@ class WheatherDataController extends Controller
         }
         $stationId = Station::query()->where('name', $request->get('stn'))->value('id');
 
-        if (!$correctData){
-            // first put incorrect data in the IncorrectData table
-            $incorrectData = new IncorrectData();
-            $incorrectData->station_id = $stationId;
-            $this->addData($request, $incorrectData);
-            // create new array with the right data and add this to the WheatherData table
-            $wheatherData = new WheatherData();
-            $this->addData($request, $wheatherData);
+        if (! $correctData){
+            //first add correct data to weatherdata table
+            //todo: calculate correct data where data is wrong
+            $correctData = WheatherData::create([
+                'station_id' => $stationId,
+                'temperature' => $this->controlTemperature($request['TEMP']) ? $this->calculateNewValue('temperature') : $request['TEMP'],
+                'date_time' => Carbon::createFromFormat('Y-m-dH:i:s', $request['DATE'] . $request['TIME']),
+                'dewpoint' => ($request['DEWP'] === 'None') ? $this->calculateNewValue('dewpoint') : $request['DEWP'],
+                'standard_pressure' => ($request['STP'] === 'None') ? $this->calculateNewValue('standard_pressure') : $request['STP'],
+                'sea_level_pressure' => ($request['SLP'] === 'None') ? $this->calculateNewValue('sea_level_pressure') : $request['SLP'],
+                'visibility' => ($request['VISIB'] === 'None') ? $this->calculateNewValue('visibility') : $request['VISIB'],
+                'wind_speed' => ($request['WDSP'] === 'None') ? $this->calculateNewValue('wind_speed') : $request['WDSP'],
+                'precipation' => ($request['PRCP'] === 'None') ? $this->calculateNewValue('precipation') : $request['PRCP'],
+                'snow_depth' => ($request['SNDP'] === 'None') ? $this->calculateNewValue('snow_depth') : $request['SNDP'],
+                'humidity' => ($request['FRSHTT'] === 'None') ? $this->calculateNewValue('humidity') : $request['FRSHTT'],
+                'cloud_cover' => ($request['CLDC'] === 'None') ? $this->calculateNewValue('cloud_cover') : $request['CLDC'],
+                'wind_direction' => ($request['WNDDIR'] === 'None') ? $this->calculateNewValue('wind_direction') : $request['WNDDIR'],
+            ]);
+
+            //then put incorrect data in the IncorrectData table
+            $incorrectData = IncorrectData::create([
+                'wheather_data_id' => $correctData->id,
+                'temperature' => $request['TEMP'],
+                'dewpoint' => $request['DEWP'],
+                'standard_pressure' => $request['STP'],
+                'sea_level_pressure' => $request['SLP'],
+                'visibility' => $request['VISIB'],
+                'wind_speed' => $request['WDSP'],
+                'precipation' => $request['PRCP'],
+                'snow_depth' => $request['SNDP'],
+                'humidity' => $request['FRSHTT'],
+                'cloud_cover' => $request['CLDC'],
+                'wind_direction' => $request['WNDDIR'],
+            ]);
         }
         else {
-            // if no incorrect data add data to WheatherData table
-            $wheatherData = new WheatherData();
-            $wheatherData->station_id = $stationId;
-            $this->addData($request, $wheatherData);
-        }
-    }
-
-    private function addData(WheatherDataRequest $request, $model)
-    {
-        $arrayDataNames = WheatherData::arrayKeys();
-        foreach ($arrayDataNames as $data) {
-            if($data === 'temp') {
-                if (!$this->controlTemperature($request, $data)) {
-                    $model->attr = $this->calculateNewData($request, $data);
-                }
-                else {
-                    $model->attr = $request->get($data);
-                }
-            }
-            elseif ($request->get($data) === 'null') {
-                $model->attr = $this->calculateNewData($request, $data);
-            }
-            else {
-                $model->attr = $request->get($data);
-            }
+            $correctData = WheatherData::create([
+                'station_id' => $stationId,
+                'temperature' => $request['TEMP'],
+                'date_time' => Carbon::createFromFormat('Y-m-dH:i:s', $request['DATE'] . $request['TIME']),
+                'dewpoint' => $request['DEWP'],
+                'standard_pressure' => $request['STP'],
+                'sea_level_pressure' => $request['SLP'],
+                'visibility' => $request['VISIB'],
+                'wind_speed' => $request['WDSP'],
+                'precipation' => $request['PRCP'],
+                'snow_depth' => $request['SNDP'],
+                'humidity' => $request['FRSHTT'],
+                'cloud_cover' => $request['CLDC'],
+                'wind_direction' => $request['WNDDIR'],
+            ]);
         }
     }
 
@@ -74,24 +90,38 @@ class WheatherDataController extends Controller
         return true;
     }
 
-    private function calculateNewData(WheatherDataRequest $request,$data)
+    private function getNewData(Collection $points): float | false
     {
         $nrDataPoints = 30;
         $totalOfData = 0;
         $totalOfDelta = 0;
         $previousPoint = 0;
-        // query 30 data punten van deze station van deze specifieke data ophalen
-        $dataPoints = WheatherData::query()->where('station_id', $request->get('stn'), )->value($data)->limit(30);
-        // $data = SELECT * FROM wheatherData WHERE station_id = $this->station_id ORDER BY desc
-        foreach ($dataPoints as $point) {
-              $totalOfData += $point;             // elk punt bij elkaar optellen
-              $delta = $point - $previousPoint;   // delta berekenen
-              $totalOfDelta += $delta;            // elk delta bij elkaar optellen
-              $previousPoint = $point;
+
+        if ($points->count() < $nrDataPoints) {
+            return false;
+        }
+
+        foreach ($points as $point) {
+            $totalOfData += $point;             // elk punt bij elkaar optellen
+            $delta = $point - $previousPoint;   // delta berekenen
+            $totalOfDelta += $delta;            // elk delta bij elkaar optellen
+            $previousPoint = $point;
         }
         $averageData = $totalOfData / $nrDataPoints;
         $averageDelta = $totalOfDelta / $nrDataPoints;
         return $averageData + $averageDelta;
+    }
+
+    private function calculateNewValue(string $dataKey): float | false
+    {
+        return $this->getNewData(
+            WheatherData::query()
+                ->where('station_id', request()['STN'])
+                ->orderByDesc('date_time')
+                ->limit(30)
+                ->get()
+                ->pluck($dataKey)
+        );
     }
 
     public function retrieveWeatherData(Request $request) {
