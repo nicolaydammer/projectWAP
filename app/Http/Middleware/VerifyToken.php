@@ -22,11 +22,11 @@ class VerifyToken
             return $next($request);
         }
 
-        throw new TokenMismatchException;
+        throw new TokenMismatchException('Token mismatch');
     }
 
     private function verify(Request $request): bool
     {
-        return Customer::query()->where('token', $request->header('token'))->exists();
+        return Customer::query()->where('api_token', $request->bearerToken())->exists();
     }
 }

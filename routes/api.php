@@ -19,7 +19,6 @@ Route::post('/postWheatherData', 'App\Http\Controllers\WheatherDataController@in
 Route::group([
     'prefix' => '/iwa',
     'middleware' => [
-        'auth',
         'verifyToken',
     ]], function () {
 
