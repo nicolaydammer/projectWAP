@@ -100,7 +100,7 @@ class WheatherDataController extends Controller
 
 
         //todo: implement retrieve weather data
-//        return Customer::query()->where('api_token', '=', $request->header('token'))->pluck('id');
-        return $request->bearerToken();
+
+        return 'hello there';
     }
 }

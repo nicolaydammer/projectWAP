@@ -22,7 +22,7 @@ class VerifyToken
             return $next($request);
         }
 
-        throw new TokenMismatchException;
+        throw new TokenMismatchException('Token mismatch');
     }
 
     private function verify(Request $request): bool
