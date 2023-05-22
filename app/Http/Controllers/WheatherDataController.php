@@ -7,26 +7,26 @@ use App\Models\IncorrectData;
 use App\Models\Station;
 use App\Models\WheatherData;
 use App\Models\Customer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class WheatherDataController extends Controller
 {
     public function index(WheatherDataRequest $request)
     {
         $correctData = true;
-        $arrayDataNames = WheatherData::arrayKeys();
-        foreach ($arrayDataNames as $data) {
-            if ($data === 'temp') {
-                if (!$this->controlTemperature($request, $data)) {
-                    $correctData = false;
-                }
-            }
-            if ($request->get($data) === 'null') {
+        $allData = $request->all();
+
+        foreach ($allData as $key => $value) {
+            if ($key === 'TEMP' && ! $this->controlTemperature($value)) {
+                $correctData = false;
+            } elseif ($value === 'null') {
                 $correctData = false;
             }
-
         }
-        $stationId = Station::query()->where('name', $request->get('stn'))->value('id');
+
+        $stationId = Station::query()->where('name', $request->get('STN'))->value('id');
 
         if (! $correctData){
             //first add correct data to weatherdata table
@@ -82,9 +82,18 @@ class WheatherDataController extends Controller
         }
     }
 
-    private function controlTemperature(WheatherDataRequest $request, $data)
+    private function controlTemperature($tempData): bool
     {
-        if ($request->get($data) > $this->calculateNewData($request, $data) * 1.2||$request->get($data) < $this->calculateNewData($request, $data) * 0.8 ) {
+        $rawNewData = $this->calculateNewValue('temperature');
+
+        if (! $rawNewData) {
+            return true;
+        }
+
+        $one = $rawNewData * 1.2;
+        $two = $rawNewData * 0.8;
+
+        if ($tempData > $one || $tempData < $two ) {
             return false;
         }
         return true;
