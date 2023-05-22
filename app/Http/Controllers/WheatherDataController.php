@@ -7,6 +7,7 @@ use App\Models\IncorrectData;
 use App\Models\Station;
 use App\Models\WheatherData;
 use App\Models\Customer;
+use Cassandra\Custom;
 use Illuminate\Http\Request;
 
 class WheatherDataController extends Controller
@@ -94,10 +95,12 @@ class WheatherDataController extends Controller
         return $averageData + $averageDelta;
     }
 
-    public function retrieveWeatherData(Request $request) {
-        $customer = Customer::query()->where('token', '=', $request->header('token'));
+    public function retrieveWeatherData(Request $request)
+    {
+
 
         //todo: implement retrieve weather data
-        return '';
+//        return Customer::query()->where('api_token', '=', $request->header('token'))->pluck('id');
+        return $request->bearerToken();
     }
 }
