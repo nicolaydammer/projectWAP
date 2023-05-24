@@ -15,6 +15,7 @@ class WheatherDataController extends Controller
 {
     public function index(WheatherDataRequest $request)
     {
+        //todo: elk request is een list van json objecten
         $correctData = true;
         $allData = $request->all();
 
@@ -30,7 +31,6 @@ class WheatherDataController extends Controller
 
         if (! $correctData){
             //first add correct data to weatherdata table
-            //todo: calculate correct data where data is wrong
             $correctData = WheatherData::create([
                 'station_id' => $stationId,
                 'temperature' => $this->controlTemperature($request['TEMP']) ? $this->calculateNewValue('temperature') : $request['TEMP'],
