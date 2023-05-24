@@ -16,6 +16,8 @@ class WheatherDataController extends Controller
     public function index(WheatherDataRequest $request)
     {
         //todo: elk request is een list van json objecten
+        //todo: FRSHTT is not humidity, but that can be calculated from temp and dewpoint
+
         $correctData = true;
         $allData = $request->all();
 
