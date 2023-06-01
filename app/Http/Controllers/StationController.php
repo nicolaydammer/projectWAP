@@ -13,8 +13,8 @@ class StationController extends Controller
         return Station::all();
     }
 
-    public function getStationByName(Request $request)
+    public function getStationByName(Request $request, int $naam)
     {
-        return StationRepository::searchStationByName($request->get('name'));
+        return StationRepository::searchStationByName($naam);
     }
 }

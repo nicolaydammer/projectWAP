@@ -27,13 +27,13 @@ Route::group([
 
         Route::get('/{id}', 'App\Http\Controllers\WheatherDataController@retrieveWeatherData');
         Route::get('/stations', 'App\Http\Controllers\StationController@ListStations');
-        Route::get('/station/naam', 'App\Http\Controllers\StationController@getStationByName');
+        Route::get('/station/{naam}', 'App\Http\Controllers\StationController@getStationByName');
     });
 
     Route::group(['prefix' => '/contracten'], function () {
 
         Route::get('/query/{nr}', 'App\Http\Controllers\CustomerController@getQuery');
         Route::get('/stations', 'App\Http\Controllers\StationController@ListStations');
-        Route::get('/station/naam', 'App\Http\Controllers\StationController@getStationByName');
+        Route::get('/station/{naam}', 'App\Http\Controllers\StationController@getStationByName');
     });
 });

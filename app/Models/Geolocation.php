@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Geolocation extends Model
 {
@@ -35,9 +37,9 @@ class Geolocation extends Model
     /**
      * Get the country that belongs to these geolocation.
      */
-    public function country(): BelongsTo
+    public function country(): HasOne
     {
-        return $this->belongsTo(Country::class);
+        return $this->hasOne(Country::class, 'country_code','country_id');
     }
     /**
      * Get the station that belongs to this geolocation.
