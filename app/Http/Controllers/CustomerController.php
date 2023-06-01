@@ -53,6 +53,7 @@ class CustomerController extends Controller
     {
         $customer = Customer::query()->where('api_token', '=', $request->bearerToken())->first();
 
+
         // query 1 : temperatuur =< 13.9 en neerslag europa/japan
         // query 2 : top 10 windsnelheid europa
     }

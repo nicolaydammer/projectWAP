@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class NearestLocation extends Model
 {
@@ -24,12 +25,18 @@ class NearestLocation extends Model
         'elevation'
     ];
 
+    protected $hidden = [
+        'updated_at',
+        'created_at',
+        'country_id',
+    ];
+
     /**
      * Get the country that belongs to these nearestlocations.
      */
-    public function country(): BelongsTo
+    public function country(): HasOne
     {
-        return $this->belongsTo(Country::class);
+        return $this->hasOne(Country::class, 'country_code', 'country_id');
     }
 
     /**

@@ -15,5 +15,5 @@ interface StationRepositoryInterface
 
     public static function getStationById(int $id);
 
-    public static function searchStationByName(string $name);
+    public static function searchStationByName(int $name);
 }

@@ -20,7 +20,8 @@ Route::group([
     'prefix' => '/iwa',
     'middleware' => [
         'verifyToken',
-    ]], function () {
+        ],
+    ], function () {
 
     Route::group(['prefix' => '/abonnement'], function () {
 
@@ -31,7 +32,7 @@ Route::group([
 
     Route::group(['prefix' => '/contracten'], function () {
 
-        Route::get('/querynr', 'App\Http\Controllers\CustomerController@getQuery');
+        Route::get('/query/{nr}', 'App\Http\Controllers\CustomerController@getQuery');
         Route::get('/stations', 'App\Http\Controllers\StationController@ListStations');
         Route::get('/station/naam', 'App\Http\Controllers\StationController@getStationByName');
     });
