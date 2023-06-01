@@ -15,6 +15,6 @@ class StationController extends Controller
 
     public function getStationByName(Request $request)
     {
-        return StationRepository::searchStationByName($request->get('stn'));
+        return StationRepository::searchStationByName($request->get('name'));
     }
 }

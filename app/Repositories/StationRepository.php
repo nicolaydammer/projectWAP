@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\StationRepositoryInterface;
 use App\Models\Station;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use LaravelIdea\Helper\App\Models\_IH_Station_C;
 
 class StationRepository implements StationRepositoryInterface
@@ -29,8 +30,10 @@ class StationRepository implements StationRepositoryInterface
         return Station::findOrFail($id);
     }
 
-    public static function searchStationByName(string $name): array|LengthAwarePaginator|_IH_Station_C
+    public static function searchStationByName(string $name)
     {
-        return Station::where('name', 'like', '%' . $name . '%')->paginate(15);
+        return Station::query()
+            ->where('name', 'like', '%' . $name . '%')
+            ->with('nearestLocations');
     }
 }
