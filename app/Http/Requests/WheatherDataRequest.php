@@ -14,20 +14,21 @@ class WheatherDataRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'DATE' => 'required',
-            'TIME' => 'required',
-            'TEMP' => 'required | numeric',
-            'DEWP' => 'required | numeric',
-            'STP' => 'required | numeric',
-            'SLP' => 'required | numeric',
-            'VISIB' => 'required | numeric',
-            'WDSP' => 'required | numeric',
-            'PRCP' => 'required | numeric',
-            'SNDP' => 'required | numeric',
-            'FRSHTT' => 'required',
-            'CLDC' => 'required | numeric',
-            'WNDDIR' => 'required | numeric',
-            'EVENTS' => 'nullable',
+            'WEATHERDATA' => 'array',
+            'WEATHERDATA.*.DATE' => 'required',
+            'WEATHERDATA.*.TIME' => 'required',
+            'WEATHERDATA.*.TEMP' => 'required | numeric',
+            'WEATHERDATA.*.DEWP' => 'required | numeric',
+            'WEATHERDATA.*.STP' => 'required | numeric',
+            'WEATHERDATA.*.SLP' => 'required | numeric',
+            'WEATHERDATA.*.VISIB' => 'required | numeric',
+            'WEATHERDATA.*.WDSP' => 'required | numeric',
+            'WEATHERDATA.*.PRCP' => 'required | numeric',
+            'WEATHERDATA.*.SNDP' => 'required | numeric',
+            'WEATHERDATA.*.FRSHTT' => 'required',
+            'WEATHERDATA.*.CLDC' => 'required | numeric',
+            'WATHERDATA.*.WNDDIR' => 'required | numeric',
+            'WEATHERDATA.*.EVENTS' => 'nullable',
         ];
     }
 }

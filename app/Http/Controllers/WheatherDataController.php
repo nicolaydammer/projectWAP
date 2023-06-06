@@ -15,85 +15,30 @@ class WheatherDataController extends Controller
 {
     public function index(WheatherDataRequest $request)
     {
-        //todo: elk request is een list van json objecten
-        //todo: FRSHTT is not humidity, but that can be calculated from temp and dewpoint
-
-//        $correctData = true;
+        $correctData = true;
         $json = $request->all();
         $wheatherData = $json['WEATHERDATA'];
 
         foreach ($wheatherData as $data) {
             foreach ($data as $key => $value) {
                 if ($key === 'TEMP' && !$this->controlTemperature($value)) {
-//                  $correctData = false;
-                    $this->incorrectData($data);
+                    $correctData = false;
                 } elseif ($value === 'null') {
-//                  $correctData = false;
-                    $this->incorrectData($data);
-                } else{
-                    $this->correctData($data);
+                    $correctData = false;
                 }
             }
+            if (!$correctData){
+                $this->incorrectData($data);
+
+            } else {
+                $this->correctData($data);
+            }
         }
-//
-//        $stationId = Station::query()->where('name', $request->get('STN'))->value('id');
-//
-//        if (! $correctData){
-//            //first add correct data to weatherdata table
-//            $correctData = WheatherData::create([
-//                'station_id' => $stationId,
-//                'temperature' => $this->controlTemperature($request['TEMP']) ? $this->calculateNewValue('temperature') : $request['TEMP'],
-//                'date_time' => Carbon::createFromFormat('Y-m-dH:i:s', $request['DATE'] . $request['TIME']),
-//                'dewpoint' => ($request['DEWP'] === 'None') ? $this->calculateNewValue('dewpoint') : $request['DEWP'],
-//                'standard_pressure' => ($request['STP'] === 'None') ? $this->calculateNewValue('standard_pressure') : $request['STP'],
-//                'sea_level_pressure' => ($request['SLP'] === 'None') ? $this->calculateNewValue('sea_level_pressure') : $request['SLP'],
-//                'visibility' => ($request['VISIB'] === 'None') ? $this->calculateNewValue('visibility') : $request['VISIB'],
-//                'wind_speed' => ($request['WDSP'] === 'None') ? $this->calculateNewValue('wind_speed') : $request['WDSP'],
-//                'precipation' => ($request['PRCP'] === 'None') ? $this->calculateNewValue('precipation') : $request['PRCP'],
-//                'snow_depth' => ($request['SNDP'] === 'None') ? $this->calculateNewValue('snow_depth') : $request['SNDP'],
-//                'humidity' => ($request['FRSHTT'] === 'None') ? $this->calculateNewValue('humidity') : $request['FRSHTT'],
-//                'cloud_cover' => ($request['CLDC'] === 'None') ? $this->calculateNewValue('cloud_cover') : $request['CLDC'],
-//                'wind_direction' => ($request['WNDDIR'] === 'None') ? $this->calculateNewValue('wind_direction') : $request['WNDDIR'],
-//            ]);
-//
-//            //then put incorrect data in the IncorrectData table
-//            $incorrectData = IncorrectData::create([
-//                'wheather_data_id' => $correctData->id,
-//                'temperature' => $request['TEMP'],
-//                'dewpoint' => $request['DEWP'],
-//                'standard_pressure' => $request['STP'],
-//                'sea_level_pressure' => $request['SLP'],
-//                'visibility' => $request['VISIB'],
-//                'wind_speed' => $request['WDSP'],
-//                'precipation' => $request['PRCP'],
-//                'snow_depth' => $request['SNDP'],
-//                'humidity' => $request['FRSHTT'],
-//                'cloud_cover' => $request['CLDC'],
-//                'wind_direction' => $request['WNDDIR'],
-//            ]);
-//        }
-//        else {
-//            $correctData = WheatherData::create([
-//                'station_id' => $stationId,
-//                'temperature' => $request['TEMP'],
-//                'date_time' => Carbon::createFromFormat('Y-m-dH:i:s', $request['DATE'] . $request['TIME']),
-//                'dewpoint' => $request['DEWP'],
-//                'standard_pressure' => $request['STP'],
-//                'sea_level_pressure' => $request['SLP'],
-//                'visibility' => $request['VISIB'],
-//                'wind_speed' => $request['WDSP'],
-//                'precipation' => $request['PRCP'],
-//                'snow_depth' => $request['SNDP'],
-//                'humidity' => $request['FRSHTT'],
-//                'cloud_cover' => $request['CLDC'],
-//                'wind_direction' => $request['WNDDIR'],
-//            ]);
-//        }
     }
 
     public function correctData($data)
     {
-        $stationId = Station::query()->where('name', $data->get('STN'))->value('id');
+        $stationId = Station::query()->where('name', $data['STN'])->value('id');
 
         $correctData = WheatherData::create([
             'station_id' => $stationId,
