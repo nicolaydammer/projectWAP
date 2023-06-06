@@ -120,12 +120,11 @@ class CustomerController extends Controller
             $allStations = array_merge($europeanStations, $japaneseStations);
 
             return WheatherData::query()
+                ->selectRaw('station_id, max(date_time) as date_time, temperature, precipation')
                 ->whereIn('station_id', $allStations)
-                ->groupBy(['temperature', 'precipation'])
-                ->havingRaw('temperature <= 13.9')
-                ->latest()
+                ->groupBy(['station_id', 'temperature', 'precipation'])
+                ->havingRaw('temperature <= 13.9 and date_time >= (NOW() - 1)')
                 ->get();
-
         }
 
         // query 1 : temperatuur =< 13.9 en neerslag europa/japan
