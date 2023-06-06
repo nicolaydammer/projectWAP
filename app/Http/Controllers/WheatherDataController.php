@@ -144,10 +144,4 @@ class WheatherDataController extends Controller
         );
     }
 
-    public function retrieveWeatherData(Request $request) {
-        $customer = Customer::query()->where('token', '=', $request->header('token'));
-
-        //todo: implement retrieve weather data
-        return '';
-    }
 }
