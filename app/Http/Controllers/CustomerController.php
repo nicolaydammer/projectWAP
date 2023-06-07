@@ -7,12 +7,12 @@ use App\Models\Contract;
 use App\Models\Country;
 use App\Models\Customer;
 use App\Models\Geolocation;
-use App\Models\Station;
 use App\Models\WheatherData;
+use Carbon\Carbon;
+use http\Exception\InvalidArgumentException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -104,13 +104,17 @@ class CustomerController extends Controller
 
     public function getQuery(Request $request, int $nr)
     {
-        $customer = Customer::query()->where('api_token', '=', $request->bearerToken())->first();
+        $europeanStations = Geolocation::query()
+            ->whereHas('country', function (Builder $builder) {
+                $builder->whereIn('country_code', self::$europeanCountries);
+            })->pluck('station_id')->toArray();
+
+        $dateTime = Carbon::now()
+            ->subDay()
+            ->format('Y-m-d H:i:s');
+        $dateTimeQuery = "date_time >= '$dateTime'";
 
         if ($nr === 1) {
-            $europeanStations = Geolocation::query()
-                ->whereHas('country', function (Builder $builder) {
-                    $builder->whereIn('country_code', self::$europeanCountries);
-                })->pluck('station_id')->toArray();
 
             $japaneseStations = Geolocation::query()
                 ->whereHas('country', function (Builder $builder) {
@@ -123,13 +127,23 @@ class CustomerController extends Controller
                 ->selectRaw('station_id, max(date_time) as date_time, temperature, precipation')
                 ->whereIn('station_id', $allStations)
                 ->groupBy(['station_id', 'temperature', 'precipation'])
-                ->havingRaw('temperature <= 13.9 and date_time >= (NOW() - 1)')
+                ->havingRaw('temperature <= 13.9 and ' . $dateTimeQuery)
                 ->get();
         }
 
+        if ($nr === 2) {
+            return WheatherData::query()
+                ->selectRaw('station_id, max(date_time) as date_time, max(wind_speed) as wind_speed')
+                ->whereIn('station_id', $europeanStations)
+                ->groupBy('station_id')
+                ->havingRaw($dateTimeQuery)
+                ->limit(10)
+                ->get();
+        }
+
+        throw new \InvalidArgumentException('invalid query number given');
         // query 1 : temperatuur =< 13.9 en neerslag europa/japan
         // query 2 : top 10 windsnelheid europa
-        return [];
     }
 
     public function create(): View
