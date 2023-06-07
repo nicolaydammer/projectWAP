@@ -143,5 +143,4 @@ class WheatherDataController extends Controller
                 ->pluck($dataKey)
         );
     }
-
 }
