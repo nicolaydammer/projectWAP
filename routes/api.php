@@ -16,13 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/postWheatherData', 'App\Http\Controllers\WheatherDataController@index');
 
-Route::post('/api/login', [AuthenticationController::class, 'login']);
+Route::post('/iwa/login', [AuthenticationController::class, 'login']);
 
 Route::group([
     'prefix' => '/iwa',
-    'middleware' => [
-        'verifyToken',
-        ],
+    'middleware' => ['auth:sanctum'],
     ], function () {
 
     Route::group(['prefix' => '/abonnement'], function () {
