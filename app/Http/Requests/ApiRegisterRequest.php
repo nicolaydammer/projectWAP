@@ -22,7 +22,7 @@ class ApiRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|unique:user|email',
+            'email' => 'required|unique:users|email',
             'name' => 'required|min:3|string',
             'password' => 'required|string|min:5',
         ];
