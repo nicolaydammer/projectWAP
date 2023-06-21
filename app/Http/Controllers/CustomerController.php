@@ -122,15 +122,23 @@ class CustomerController extends Controller
                     $builder->where('country_code', '=', 'JP');
                 })->pluck('station_id')->toArray();
 
-            $allStations = array_merge($europeanStations, $japaneseStations);
-
-            return WheatherData::query()
+            $europeData = WheatherData::query()
                 ->selectRaw('station_id, max(date_time) as date_time, temperature, precipation')
-                ->whereIn('station_id', $allStations)
+                ->whereIn('station_id', $europeanStations)
                 ->groupBy(['station_id', 'temperature', 'precipation'])
                 ->havingRaw('temperature <= 13.9 and ' . $dateTimeQuery)
                 ->with('station.nearestLocation')
-                ->get();
+                ->get()->toArray();
+
+            $japanData = WheatherData::query()
+                ->selectRaw('station_id, max(date_time) as date_time, temperature, precipation')
+                ->whereIn('station_id', $japaneseStations)
+                ->groupBy(['station_id', 'temperature', 'precipation'])
+                ->havingRaw('temperature <= 13.9 and ' . $dateTimeQuery)
+                ->with('station.nearestLocation')
+                ->get()->toArray();
+
+            return ['europe' => $europeData, 'japan' => $japanData];
         }
 
         if ($nr === 2) {
