@@ -9,7 +9,6 @@ use App\Models\Customer;
 use App\Models\Geolocation;
 use App\Models\WheatherData;
 use Carbon\Carbon;
-use http\Exception\InvalidArgumentException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
