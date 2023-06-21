@@ -13,6 +13,7 @@ use http\Exception\InvalidArgumentException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -111,6 +112,7 @@ class CustomerController extends Controller
 
         $dateTime = Carbon::now()
             ->subDay()
+            ->subDay()
             ->format('Y-m-d H:i:s');
         $dateTimeQuery = "date_time >= '$dateTime'";
 
@@ -128,16 +130,19 @@ class CustomerController extends Controller
                 ->whereIn('station_id', $allStations)
                 ->groupBy(['station_id', 'temperature', 'precipation'])
                 ->havingRaw('temperature <= 13.9 and ' . $dateTimeQuery)
+                ->with('station.nearestLocation')
                 ->get();
         }
 
         if ($nr === 2) {
-            return WheatherData::query()
-                ->selectRaw('station_id, max(date_time) as date_time, max(wind_speed) as wind_speed')
+           return WheatherData::query()
+                ->selectRaw('station_id, max(wind_speed) as wind_speed')
                 ->whereIn('station_id', $europeanStations)
                 ->groupBy('station_id')
-                ->havingRaw($dateTimeQuery)
+                ->whereRaw($dateTimeQuery)
                 ->limit(10)
+                ->orderBy('wind_speed', 'desc')
+                ->with('station.nearestLocation')
                 ->get();
         }
 

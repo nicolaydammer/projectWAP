@@ -51,9 +51,9 @@ class WheatherData extends Model
     /**
      * Get the station that belongs to these wheather data.
      */
-    public function station(): BelongsTo
+    public function station(): HasOne
     {
-        return $this->belongsTo(Station::class);
+        return $this->hasOne(Station::class, 'name', 'station_id');
     }
 
     /**

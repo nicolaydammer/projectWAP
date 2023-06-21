@@ -25,7 +25,7 @@ class Station extends Model
     /**
      * Get the nearestlocations associated with the station.
      */
-    public function nearestlocations(): HasOne
+    public function nearestlocation(): HasOne
     {
         return $this->hasOne(NearestLocation::class, 'station_id','name');
     }
