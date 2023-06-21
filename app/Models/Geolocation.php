@@ -34,6 +34,28 @@ class Geolocation extends Model
         'postalcode'
     ];
 
+    protected $hidden = [
+        'island',
+        'county',
+        'place',
+        'hamlet',
+        'town',
+        'municipality',
+        'state_district',
+        'administrative',
+        'state',
+        'village',
+        'region',
+        'province',
+        'locality',
+        'postalcode',
+        'id',
+        'station_id',
+        'country_id',
+        'created_at',
+        'updated_at'
+    ];
+
     /**
      * Get the country that belongs to these geolocation.
      */
