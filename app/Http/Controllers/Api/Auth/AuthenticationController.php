@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Requests\ApiLoginRequest;
+use App\Http\Requests\ApiRegisterRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -27,5 +28,18 @@ class AuthenticationController
         }
 
         abort(403, 'Invalid combination of email and password.');
+    }
+
+    public function register(ApiRegisterRequest $request)
+    {
+        $validatedData = $request->validated();
+
+        $user = new User();
+        $user->email = $validatedData['email'];
+        $user->name = $validatedData['name'];
+        $user->password = Hash::make($validatedData['password']);
+        $user->save();
+
+        return $user->id;
     }
 }

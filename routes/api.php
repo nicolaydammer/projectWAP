@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/postWheatherData', 'App\Http\Controllers\WheatherDataController@index');
 
 Route::post('/iwa/login', [AuthenticationController::class, 'login']);
+Route::post('/iwa/register', [AuthenticationController::class, 'register']);
 
 Route::group([
     'prefix' => '/iwa',
