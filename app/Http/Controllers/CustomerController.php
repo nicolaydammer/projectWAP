@@ -112,6 +112,7 @@ class CustomerController extends Controller
         $dateTime = Carbon::now()
             ->subDay()
             ->subDay()
+            ->timezone('Europe/Amsterdam')
             ->format('Y-m-d H:i:s');
         $dateTimeQuery = "date_time >= '$dateTime'";
 
