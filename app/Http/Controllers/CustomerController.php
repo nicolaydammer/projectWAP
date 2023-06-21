@@ -147,6 +147,11 @@ class CustomerController extends Controller
         }
 
         if ($nr === 2) {
+            $europeanStations = Geolocation::query()
+                ->whereHas('country', function (Builder $builder) {
+                    $builder->whereIn('country_code', self::$europeanCountries);
+                })->pluck('id')->toArray();
+
             return WheatherData::query()
                 ->selectRaw('station_id, max(wind_speed) as wind_speed')
                 ->whereIn('station_id', $europeanStations)
