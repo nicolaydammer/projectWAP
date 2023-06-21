@@ -53,7 +53,7 @@ class WheatherData extends Model
      */
     public function station(): HasOne
     {
-        return $this->hasOne(Station::class, 'name', 'station_id');
+        return $this->hasOne(Station::class, 'id', 'station_id');
     }
 
     /**

@@ -44,8 +44,8 @@ class Geolocation extends Model
     /**
      * Get the station that belongs to this geolocation.
      */
-    public function station(): BelongsTo
+    public function station(): HasOne
     {
-        return $this->belongsTo(Station::class);
+        return $this->HasOne(Station::class, 'name', 'station_id');
     }
 }

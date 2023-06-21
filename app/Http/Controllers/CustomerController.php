@@ -107,7 +107,7 @@ class CustomerController extends Controller
         $europeanStations = Geolocation::query()
             ->whereHas('country', function (Builder $builder) {
                 $builder->whereIn('country_code', self::$europeanCountries);
-            })->pluck('station_id')->toArray();
+            })->pluck('id')->toArray();
 
         $dateTime = Carbon::now()
             ->subDay()
@@ -134,7 +134,7 @@ class CustomerController extends Controller
             $japanData = WheatherData::query()
                 ->selectRaw('station_id, max(date_time) as date_time, temperature, precipation')
                 ->whereIn('station_id', $japaneseStations)
-                ->groupBy(['station_id', 'temperature', 'precipation'])
+                ->groupBy(['station_id', 'date_time', 'temperature', 'precipation'])
                 ->havingRaw('temperature <= 13.9 and ' . $dateTimeQuery)
                 ->with('station.nearestLocation')
                 ->get()->toArray();
