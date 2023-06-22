@@ -18,11 +18,8 @@ class Station extends Model
     ];
 
     protected $hidden = [
-        'id',
         'name',
         'elevation',
-        'latitude',
-        'longitude',
         'created_at',
         'updated_at',
     ];

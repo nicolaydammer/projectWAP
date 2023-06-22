@@ -7,6 +7,7 @@ use App\Models\Contract;
 use App\Models\Country;
 use App\Models\Customer;
 use App\Models\Geolocation;
+use App\Models\Station;
 use App\Models\WheatherData;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -147,11 +148,13 @@ class CustomerController extends Controller
         }
 
         if ($nr === 2) {
-            $europeanStations = Geolocation::query()
-                ->whereHas('country', function (Builder $builder) {
-                    $builder->whereIn('country_code', self::$europeanCountries);
-                })->pluck('id')->toArray();
+            $europeanStations = Station::query()
+                ->whereHas('geolocation', function ($builder) {
+                    $builder->whereIn('country_id', self::$europeanCountries);
+                })
+                ->pluck('stations.id');
 
+//            dd($europeanStations);
             return WheatherData::query()
                 ->selectRaw('station_id, max(wind_speed) as wind_speed')
                 ->whereIn('station_id', $europeanStations)
