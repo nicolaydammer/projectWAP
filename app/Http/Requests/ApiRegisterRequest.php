@@ -24,7 +24,6 @@ class ApiRegisterRequest extends FormRequest
         return [
             'email' => 'required|unique:users|email',
             'name' => 'required|min:3|string',
-            'password' => 'required|string|min:5',
         ];
     }
 }

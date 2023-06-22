@@ -6,6 +6,7 @@ use App\Http\Requests\ApiLoginRequest;
 use App\Http\Requests\ApiRegisterRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AuthenticationController
 {
@@ -33,13 +34,16 @@ class AuthenticationController
     public function register(ApiRegisterRequest $request)
     {
         $validatedData = $request->validated();
+        $generatedPassword = Str::random(10);
 
         $user = new User();
         $user->email = $validatedData['email'];
         $user->name = $validatedData['name'];
-        $user->password = Hash::make($validatedData['password']);
+        $user->password = Hash::make($generatedPassword);
         $user->save();
 
-        return $user->id;
+        return [
+            'generated_password' => $generatedPassword,
+        ];
     }
 }
