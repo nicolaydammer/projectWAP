@@ -104,11 +104,6 @@ class CustomerController extends Controller
 
     public function getQuery(Request $request, int $nr)
     {
-        $europeanStations = Geolocation::query()
-            ->whereHas('country', function (Builder $builder) {
-                $builder->whereIn('country_code', self::$europeanCountries);
-            })->pluck('station_id')->toArray();
-
         $dateTime = Carbon::now()
             ->subDay()
             ->subDay()
@@ -118,48 +113,63 @@ class CustomerController extends Controller
 
         if ($nr === 1) {
 
-            $japaneseStations = Geolocation::query()
-                ->whereHas('country', function (Builder $builder) {
-                    $builder->where('country_code', '=', 'JP');
-                })->pluck('station_id')->toArray();
-
             $europeData = WheatherData::query()
-                ->selectRaw('station_id, max(date_time) as date_time, temperature, precipation')
-                ->whereIn('station_id', $europeanStations)
-                ->groupBy(['station_id', 'temperature', 'precipation'])
-                ->havingRaw('temperature <= 13.9 and ' . $dateTimeQuery)
-                ->with('station.nearestLocation')
+                ->select('wheather_data.station_id', 'precipation')
+                ->join(DB::raw('(select station_id, max(date_time) as date_time from wheather_data group by station_id)a'), function ($join) {
+                    $join->on('wheather_data.station_id', '=', 'a.station_id');
+                    $join->on('wheather_data.date_time', '=', 'a.date_time');
+                })
+                ->with('station.geolocation.country')
+                ->where('temperature', '<=', '13.9')
+                ->whereHas('station.geolocation.country', function ($builder) {
+                    $builder->whereIn('country_code', self::$europeanCountries);
+                })
+                ->orderBy('wheather_data.station_id')
                 ->get()->toArray();
 
+
+
             $japanData = WheatherData::query()
-                ->selectRaw('station_id, max(date_time) as date_time, temperature, precipation')
-                ->whereIn('station_id', $japaneseStations)
-                ->groupBy(['station_id', 'temperature', 'precipation'])
-                ->havingRaw('temperature <= 13.9 and ' . $dateTimeQuery)
-                ->with('station.nearestLocation')
+                ->select('wheather_data.station_id', 'precipation')
+                ->join(DB::raw('(select station_id, max(date_time) as date_time from wheather_data group by station_id)a'), function ($join) {
+                    $join->on('wheather_data.station_id', '=', 'a.station_id');
+                    $join->on('wheather_data.date_time', '=', 'a.date_time');
+                })
+                ->with('station.geolocation.country')
+                ->where('temperature', '<=', '13.9')
+                ->whereHas('station.geolocation.country', function ($builder) {
+                    $builder->whereIn('country_code', ['JP']);
+                })
+                ->orderBy('wheather_data.station_id')
                 ->get()->toArray();
 
             return ['europe' => $europeData, 'japan' => $japanData];
         }
 
         if ($nr === 2) {
-           return WheatherData::query()
+            $europeanStations = Geolocation::query()
+                ->whereHas('country', function (Builder $builder) {
+                    $builder->whereIn('country_code', self::$europeanCountries);
+                })->pluck('id')->toArray();
+
+            return WheatherData::query()
                 ->selectRaw('station_id, max(wind_speed) as wind_speed')
                 ->whereIn('station_id', $europeanStations)
                 ->groupBy('station_id')
                 ->whereRaw($dateTimeQuery)
                 ->limit(10)
                 ->orderBy('wind_speed', 'desc')
-                ->with('station.nearestLocation')
+                ->with('station.geolocation.country')
                 ->get();
         }
 
         throw new \InvalidArgumentException('invalid query number given');
-        // query 1 : temperatuur =< 13.9 en neerslag europa/japan
-        // query 2 : top 10 windsnelheid europa
+// query 1 : temperatuur =< 13.9 en neerslag europa/japan
+// query 2 : top 10 windsnelheid europa
     }
 
-    public function create(): View
+    public
+    function create(): View
     {
         return view('customers.create');
     }

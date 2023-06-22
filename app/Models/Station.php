@@ -18,6 +18,11 @@ class Station extends Model
     ];
 
     protected $hidden = [
+        'id',
+        'name',
+        'elevation',
+        'latitude',
+        'longitude',
         'created_at',
         'updated_at',
     ];
@@ -34,7 +39,7 @@ class Station extends Model
      */
     public function geolocation(): HasOne
     {
-        return $this->HasOne(NearestLocation::class);
+        return $this->HasOne(Geolocation::class, 'station_id', 'name');
     }
 
     /**

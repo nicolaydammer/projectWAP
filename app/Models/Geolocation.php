@@ -34,6 +34,28 @@ class Geolocation extends Model
         'postalcode'
     ];
 
+    protected $hidden = [
+        'island',
+        'county',
+        'place',
+        'hamlet',
+        'town',
+        'municipality',
+        'state_district',
+        'administrative',
+        'state',
+        'village',
+        'region',
+        'province',
+        'locality',
+        'postalcode',
+        'id',
+        'station_id',
+        'country_id',
+        'created_at',
+        'updated_at'
+    ];
+
     /**
      * Get the country that belongs to these geolocation.
      */
@@ -44,8 +66,8 @@ class Geolocation extends Model
     /**
      * Get the station that belongs to this geolocation.
      */
-    public function station(): BelongsTo
+    public function station(): HasOne
     {
-        return $this->belongsTo(Station::class);
+        return $this->HasOne(Station::class, 'name', 'station_id');
     }
 }
