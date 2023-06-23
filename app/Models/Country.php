@@ -20,6 +20,12 @@ class Country extends Model
         'country',
     ];
 
+    protected $hidden = [
+        'id',
+        'created_at',
+        'updated_at'
+    ];
+
     /**
      * Get the contract specifications associated with the country.
      */

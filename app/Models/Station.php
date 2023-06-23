@@ -17,19 +17,26 @@ class Station extends Model
         'elevation',
     ];
 
+    protected $hidden = [
+        'name',
+        'elevation',
+        'created_at',
+        'updated_at',
+    ];
+
     /**
      * Get the nearestlocations associated with the station.
      */
-    public function nearestlocations(): HasMany
+    public function nearestlocation(): HasOne
     {
-        return $this->hasMany(NearestLocation::class);
+        return $this->hasOne(NearestLocation::class, 'station_id','name');
     }
     /**
      * Get the geolocation associated with the station.
      */
     public function geolocation(): HasOne
     {
-        return $this->HasOne(NearestLocation::class);
+        return $this->HasOne(Geolocation::class, 'station_id', 'name');
     }
 
     /**

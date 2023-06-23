@@ -19,7 +19,7 @@ class ContractSpecification extends Model
         'timezone',
         'latitude',
         'longitude',
-        'data_specifications->enabled'
+        'Data_specifications'
     ];
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\Auth\AuthenticationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +14,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/postWeatherData', 'App\Http\Controllers\WheatherDataController@index');
 
-Route::post('/postWheatherData', 'App\Http\Controllers\WheatherDataController@index');
+Route::post('/iwa/login', [AuthenticationController::class, 'login']);
+Route::post('/iwa/register', [AuthenticationController::class, 'register']);
+
+Route::group([
+    'prefix' => '/iwa',
+    'middleware' => ['auth:sanctum'],
+    ], function () {
+
+    Route::group(['prefix' => '/abonnement'], function () {
+
+        Route::get('/{id}', 'App\Http\Controllers\WheatherDataController@retrieveWeatherData');
+        Route::get('/stations', 'App\Http\Controllers\StationController@ListStations');
+        Route::get('/station/{naam}', 'App\Http\Controllers\StationController@getStationByName');
+    });
+
+    Route::group(['prefix' => '/contracten'], function () {
+
+        Route::get('/query/{nr}', 'App\Http\Controllers\CustomerController@getQuery');
+        Route::get('/stations', 'App\Http\Controllers\StationController@ListStations');
+        Route::get('/station/{naam}', 'App\Http\Controllers\StationController@getStationByName');
+    });
+});

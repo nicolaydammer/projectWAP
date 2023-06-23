@@ -7,35 +7,28 @@ use Illuminate\Foundation\Http\FormRequest;
 class WheatherDataRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, string>
      */
     public function rules(): array
     {
         return [
-            'date' => 'required',
-            'time' => 'required',
-            'temp' => 'required | numeric',
-            'dewp' => 'required | numeric',
-            'stp' => 'required | numeric',
-            'slp' => 'required | numeric',
-            'visib' => 'required | numeric',
-            'wdsp' => 'required | numeric',
-            'prcp' => 'required | numeric',
-            'sndp' => 'required | numeric',
-            'frshtt' => 'required',
-            'cldc' => 'required | numeric',
-            'wnddir' => 'required | numeric',
-            'events'
+            'WEATHERDATA' => 'array',
+            'WEATHERDATA.*.DATE' => 'required',
+            'WEATHERDATA.*.TIME' => 'required',
+            'WEATHERDATA.*.TEMP' => 'required | numeric',
+            'WEATHERDATA.*.DEWP' => 'required | numeric',
+            'WEATHERDATA.*.STP' => 'required | numeric',
+            'WEATHERDATA.*.SLP' => 'required | numeric',
+            'WEATHERDATA.*.VISIB' => 'required | numeric',
+            'WEATHERDATA.*.WDSP' => 'required | numeric',
+            'WEATHERDATA.*.PRCP' => 'required | numeric',
+            'WEATHERDATA.*.SNDP' => 'required | numeric',
+            'WEATHERDATA.*.FRSHTT' => 'required',
+            'WEATHERDATA.*.CLDC' => 'required | numeric',
+            'WATHERDATA.*.WNDDIR' => 'required | numeric',
+            'WEATHERDATA.*.EVENTS' => 'nullable',
         ];
     }
 }

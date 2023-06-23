@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class WheatherData extends Model
 {
     use HasFactory;
+
     /**
      * The table associated with the model.
      *
@@ -48,9 +51,9 @@ class WheatherData extends Model
     /**
      * Get the station that belongs to these wheather data.
      */
-    public function station(): BelongsTo
+    public function station(): HasOne
     {
-        return $this->belongsTo(Station::class);
+        return $this->hasOne(Station::class, 'id', 'station_id');
     }
 
     /**
@@ -60,29 +63,5 @@ class WheatherData extends Model
     {
         return $this->HasOne(IncorrectData::class);
     }
-
-    public static function arrayKeys()
-    {
-        return [
-            'stn',
-            'temp',
-            'date',
-            'time',
-            'dewp',
-            'stp',
-            'slp',
-            'visib',
-            'wdsp',
-            'prcp',
-            'sndp',
-            'frshtt',
-            'cldc',
-            'wnddir'
-        ];
-
-    }
-
-
-
 
 }
